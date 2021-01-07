@@ -3,16 +3,27 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
+import { RouterModule } from '@angular/router';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
-
+import { AgmCoreModule } from '@agm/core';
+    
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    RouterModule.forChild([
+      {
+        path: '',
+        component: HomePage
+      }
+    ]),
+    AgmCoreModule.forRoot({
+      apiKey: 'YOUR_GOOGLE_API_KEY_HERE', 
+      libraries: ['places']
+    })
   ],
   declarations: [HomePage]
 })

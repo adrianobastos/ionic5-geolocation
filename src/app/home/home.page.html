@@ -1,46 +1,75 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="secondary">
+  <ion-toolbar color="primary">
     <ion-title>
-      Cordinates & Address in Ionic App
+      Coordenadas Geográficas
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <h4>Geolocation & Gecoder App</h4>
   <ion-grid>
-    <ion-row>
-      <ion-col size="4" class="ion-text-center">
-        Latitue
-      </ion-col>
+    <ion-row *ngIf="latitude">
+      <ion-col size="4" class="ion-text-center">Latitude</ion-col>
       <ion-col>
         <ion-badge class="ion-text-wrap" color="medium">{{latitude}}</ion-badge>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col size="4" class="ion-text-center">
-        longitude
-      </ion-col>
+    <ion-row *ngIf="longitude">
+      <ion-col size="4" class="ion-text-center">longitude</ion-col> 
       <ion-col>
         <ion-badge class="ion-text-wrap" color="medium">{{longitude}}</ion-badge>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col size="4" class="ion-text-center" color="medium">
-        Accuracy
-      </ion-col>
+    <ion-row *ngIf="accuracy">
+      <ion-col size="4" class="ion-text-center" color="medium">Accuracy</ion-col>
       <ion-col>
         <ion-badge class="ion-text-wrap" color="medium">{{accuracy}}</ion-badge>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col size="4" class="ion-text-center">
-        Address
-      </ion-col>
+    <ion-row *ngIf="address">
+      <ion-col size="4" class="ion-text-center">Address</ion-col>
       <ion-col>
         <ion-badge class="ion-text-wrap" color="medium">{{address}}</ion-badge>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="distance">
+      <ion-col size="4" class="ion-text-center">Distância da casa do Adriano</ion-col>
+      <ion-col>
+        <ion-badge class="ion-text-wrap" color="medium">{{distance}} Km </ion-badge>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="distance">
+      <ion-col size="4" class="ion-text-center">Distância da casa do Adriano</ion-col>
+      <ion-col>
+        <ion-badge class="ion-text-wrap" color="medium">{{distance}} Km </ion-badge>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="latitude">
+      <ion-col size="6" class="ion-text-center">
+        <a href="https://waze.com/ul?ll=-23.4672712,-47.4288690&z=10" target="_system">
+          <img src="./../assets/waze.svg" width="50px">
+        </a>
+      </ion-col>
+      <ion-col size="6" class="ion-text-center">
+          <a href="https://www.google.com/maps/search/?api=1&query=-23.4672712,-47.4288690" target="_system">
+              <img src="./../assets/google-maps.svg" width="50px">
+          </a>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="latitude" >
+      <ion-col>
+        <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+          <agm-marker *ngFor="let m of markers; let i = index"
+                      [latitude]="m.lat" [longitude]="m.lng"
+                      [label]="m.label" [title]="m.title" >
+            <agm-info-window [disableAutoPan]="false">
+              <strong>{{m.title}}</strong>
+            </agm-info-window>
+          </agm-marker> 
+        </agm-map>
+      </ion-col>
+    </ion-row>
+    
   </ion-grid>
   <ion-button (click)="getGeolocation()" color="success" expand="full">Get Location</ion-button>
 </ion-content>
